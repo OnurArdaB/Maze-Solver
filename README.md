@@ -25,7 +25,7 @@ go run main.go
 
 - Give the exit point for the program (main.go) as x,y values.
 
-Andddd voila here are the respective route that shall save the stranger from the maze just appearing magically on the command line.
+Andddd voilà here are the respective route that shall save the stranger from the maze just appearing magically on the command line.
 
 ## Details
 
