@@ -18,7 +18,8 @@ go run main.go
 ./mazeDrawer.mac
 ```
 
-- Give the number of maze that you want the program (main.go) to solve. (NOTE:Program does not exit after generating the matrix to a .txt file)
+- Give the number of maze that you want the program (main.go) to solve. 
+  (NOTE:Program does not exit after generating the matrix to a .txt file)
 
 - Give the entry point to the program (main.go) as x,y values.
 
@@ -80,3 +81,38 @@ func GenerateMaze(matrixHolder[][][]MazeNode){
 }
 ```
 ### Maze Solver
+```go
+// --------------------------------------------------------------------
+// 7. The recursive-backtracking algorithm itself for solving the maze
+// by traversing nodes and backtracking when gets stuck which runs until
+// exit node is found.
+// --------------------------------------------------------------------
+
+func SolveMaze(matrix[][]MazeNode,entryX,entryY,exitX,exitY int){
+	//initially empty stack
+	var stack = Stack{}
+	stack.Push(entryX,entryY)
+	UnvisitMaze(matrix)
+	matrix[entryY][entryX].visited=true
+	var DIR = []string{"U", "D", "L", "R"}
+	for !stack.isEmpty(){
+		var currentX,currentY = stack.Top()
+		Shuffle(DIR)
+		var move = DIR[0]
+		DIR  = DIR[1:]
+		var nx,ny = currentX+MovementMapX(move),currentY+MovementMapY(move)
+		if(InBetween(0,COL-1,nx)&&InBetween(0,ROW-1,ny)&&!matrix[ny][nx].visited&&RouteAllowed(matrix[currentY][currentX],move)){
+			matrix[ny][nx].visited=true
+			stack.Push(nx, ny)
+			if(nx==exitX&&ny==exitY){
+				break
+			}
+			DIR = []string{"U", "D", "L", "R"}
+		}else if (UnvisitedNeighbors(currentX, currentY, matrix) == 0 || len(DIR)==0) {
+			stack.Pop()
+			DIR = []string{"U", "D", "L", "R"}
+		}
+	}
+	stack.Display()
+}
+```
