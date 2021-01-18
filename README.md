@@ -1,5 +1,5 @@
 # Maze Solver
-This is a command line maze solver which uses non-recursive depth-first search 
+This is a command line maze solver which uses non-recursive backtracking with 
 
 ## User Guide
 
@@ -33,7 +33,7 @@ Andddd voilà here are the respective route that shall save the stranger from th
 ```go
 
 // --------------------------------------------------------------------
-// 4. The recursive-backtracking algorithm itself for generating
+// 4. The non-recursive-backtracking algorithm itself for generating
 // maze by carving the walls in each iterations until every cell is
 // visited.
 // --------------------------------------------------------------------
@@ -83,7 +83,7 @@ func GenerateMaze(matrixHolder[][][]MazeNode){
 ### Maze Solver
 ```go
 // --------------------------------------------------------------------
-// 7. The recursive-backtracking algorithm itself for solving the maze
+// 7. The non-recursive-backtracking algorithm itself for solving the maze
 // by traversing nodes and backtracking when gets stuck which runs until
 // exit node is found.
 // --------------------------------------------------------------------
