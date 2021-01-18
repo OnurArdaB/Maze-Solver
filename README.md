@@ -26,3 +26,57 @@ go run main.go
 
 Andddd voila here are the respective route that shall save the stranger from the maze just appearing magically on the command line.
 
+## Details
+
+### Maze Generator
+```go
+
+// --------------------------------------------------------------------
+// 4. The recursive-backtracking algorithm itself for generating
+// maze by carving the walls in each iterations until every cell is
+// visited.
+// --------------------------------------------------------------------
+
+func GenerateMaze(matrixHolder[][][]MazeNode){
+	//Initially empty stack
+	for maze:=0;maze<len(matrixHolder);maze++ {
+		var stack = Stack{}
+		var DIR = []string{"U", "D", "L", "R"}
+		stack.Push(0, 0)
+		matrixHolder[maze][0][0].visited = true
+		var visitedCount = 1
+		for visitedCount < COL*ROW {
+			//current cell
+			var x, y = stack.Top()
+			var move = DIR[0]
+			Shuffle(DIR)
+			//choose next cells
+			var nx, ny = x + MovementMapX(move), y + MovementMapY(move)
+			//check cell
+			if (InBetween(0, ROW-1, ny) && InBetween(0, COL-1, nx) && !matrixHolder[maze][ny][nx].visited) {
+				//if checked conditions approved than break the wall and add the node
+				matrixHolder[maze][ny][nx].visited = true
+				visitedCount++
+				stack.Push(nx, ny)
+				if (move == "L") {
+					matrixHolder[maze][y][x].L = false
+					matrixHolder[maze][ny][nx].R = false
+				} else if (move == "R") {
+					matrixHolder[maze][y][x].R = false
+					matrixHolder[maze][ny][nx].L = false
+				} else if (move == "U") {
+					matrixHolder[maze][y][x].U = false
+					matrixHolder[maze][ny][nx].D = false
+				} else {
+					matrixHolder[maze][y][x].D = false
+					matrixHolder[maze][ny][nx].U = false
+				}
+			} else if (UnvisitedNeighbors(x, y, matrixHolder[maze]) == 0) {
+				stack.Pop()
+			}
+
+		}
+	}
+}
+```
+### Maze Solver
